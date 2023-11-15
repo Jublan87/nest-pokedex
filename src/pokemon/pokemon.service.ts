@@ -94,6 +94,12 @@ export class PokemonService {
     return 'Se elimino correctamente';
   }
 
+  async removeAll() {
+    await this.pokemonModel.deleteMany({});
+
+    return 'Se elimino todo correctamente';
+  }
+
   private handleExceptions(error: any) {
     if (error.code === 11000)
       throw new BadRequestException(
