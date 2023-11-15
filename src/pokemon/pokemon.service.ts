@@ -28,6 +28,14 @@ export class PokemonService {
     }
   }
 
+  async insertManyPokemons(pokemonsToInsert: CreatePokemonDto[]) {
+    try {
+      await this.pokemonModel.insertMany(pokemonsToInsert);
+    } catch (error) {
+      this.handleExceptions(error);
+    }
+  }
+
   findAll() {
     return `This action returns all pokemon`;
   }
@@ -78,12 +86,12 @@ export class PokemonService {
     // await this.pokemonModel.findByIdAndDelete(id);
 
     //Eliminacion y validacion en una consulta
-    const { deletedCount } = await this.pokemonModel.deleteOne({_id: id});
+    const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
 
     if (deletedCount === 0)
       throw new BadRequestException(`Pokemon with id "${id}" not found`);
 
-    return 'Se elimino correctamente'
+    return 'Se elimino correctamente';
   }
 
   private handleExceptions(error: any) {
